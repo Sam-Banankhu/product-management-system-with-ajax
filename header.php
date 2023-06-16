@@ -4,13 +4,6 @@ require_once 'session.php';
 
 // Check if the user is logged in
 $isLoggedIn = isLoggedIn();
-
-// Handle logout action
-if (isset($_GET['logout'])) {
-    logout();
-    header('Location: index.php');
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -37,13 +30,14 @@ if (isset($_GET['logout'])) {
                 <a class="nav-link" href="about.php">About</a>
                 <?php if ($isLoggedIn) { ?>
                     <a class="nav-link admin-link" href="admin.php">Admin</a>
-                    <a class="nav-link" href="?logout">Logout</a>
+                    <a class="nav-link logout-link" href="#">Logout</a>
                 <?php } else { ?>
                     <a class="nav-link" href="login.php">Login</a>
                 <?php } ?>
             </div>
         </div>
     </nav>
+    <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
         // Check if the user is logged in and show the admin link
@@ -54,6 +48,19 @@ if (isset($_GET['logout'])) {
                 adminLink.style.display = 'block';
             }
         }
+
+        $(document).ready(function() {
+            $('.logout-link').click(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'logout.php',
+                    type: 'GET',
+                    success: function() {
+                        window.location.href = 'index.php';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
