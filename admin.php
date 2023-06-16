@@ -134,38 +134,33 @@ $result->free_result();
         <hr>
 
         <h2>Items</h2>
-       <!-- ... -->
-<table class="table">
-    <thead>
-        <tr>
-            <!-- <th>ID</th> -->
-            <th>Name</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($items as $item): ?>
-            <tr>
-                <!-- <td><?php echo $item['item_id']; ?></td> -->
-                <td><?php echo $item['name']; ?></td>
-                <td><?php echo $item['description']; ?></td>
-                <td><?php echo $item['quantity']; ?></td>
-                <td><?php echo $item['price']; ?></td>
-                <td><?php echo $item['category_name']; ?></td>
-                <td>
-                    <button class="btn btn-danger delete-item" data-item-id="<?php echo $item['item_id']; ?>">Delete</button>
-                    <a href="edit.php?item_id=<?php echo $item['item_id']; ?>" class="btn btn-primary">Edit</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<!-- ... -->
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td><?php echo $item['name']; ?></td>
+                        <td><?php echo $item['description']; ?></td>
+                        <td><?php echo $item['quantity']; ?></td>
+                        <td><?php echo $item['price']; ?></td>
+                        <td><?php echo $item['category_name']; ?></td>
+                        <td>
+                            <button class="btn btn-danger delete-item" data-item-id="<?php echo $item['item_id']; ?>">Delete</button>
+                            <a href="edit.php?item_id=<?php echo $item['item_id']; ?>" class="btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
         <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -174,7 +169,7 @@ $result->free_result();
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <li class="page-item <?php echo ($i == $current_page) ? 'active' : ''; ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                 <?php endfor; ?>
 
                 <?php if ($current_page < $total_pages): ?>
@@ -182,20 +177,23 @@ $result->free_result();
                 <?php endif; ?>
             </ul>
         </nav>
+
+    <hr>
+
+        <h2>Manage Categories</h2>
+        <a href="categories.php" class="btn btn-primary">Manage Categories</a>
     </div>
 
     <script src="js/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.delete-item').click(function() {
+        // Confirm and delete an item
+        $(document).on('click', '.delete-item', function() {
+            if (confirm('Are you sure you want to delete this item?')) {
                 var itemId = $(this).data('item-id');
-                if (confirm("Are you sure you want to delete this item?")) {
-                    window.location.href = 'admin.php?delete_item=' + itemId;
-                }
-            });
+                window.location.href = 'admin.php?delete_item=' + itemId;
+            }
         });
     </script>
-    <script src="js/admin.js"></script>
 
 </body>
 </html>
