@@ -2,12 +2,12 @@
 // Include the necessary files for database connection and session management
 include("header.php");
 
-require_once 'db_connection.php'; 
-require_once 'session.php'; 
+require_once 'db_connection.php';
+require_once 'session.php';
 
 // Check if the user is already logged in, redirect to the admin if true
 if (isLoggedIn()) {
-    header('Location: admin.php'); 
+    header('Location: admin.php');
     exit();
 }
 
@@ -33,12 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $loginError = 'Invalid username or password'; // Display an error message on the login form
     }
-
-    // Send the login status as JSON response
-    $response = array('success' => false, 'message' => $loginError);
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit();
 }
 ?>
 
@@ -46,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Product Management System - Login</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css"> 
-    <script src="js/jquery-3.6.0.min.js"></script> 
-    <script src="js/bootstrap.min.js"></script> 
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <style>
         .container {
             max-width: 50%;
@@ -56,40 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 100px;
         }
     </style>
-    <script>
-        $(document).ready(function() {
-            $('form').submit(function(event) {
-                event.preventDefault(); // Prevent form submission
-                var username = $('#username').val();
-                var password = $('#password').val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'login.php',
-                    data: {
-                        username: username,
-                        password: password
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.success) {
-                            // Redirect to admin page on successful login
-                            window.location.href = 'admin.php';
-                        } else {
-                            // Display the error message
-                            $('.alert').text(response.message).show();
-                        }
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center mt-5">Login</h1>
-        <div class="alert alert-danger" style="display: none;"></div>
-        <form>
+        <?php if (isset($loginError)): ?>
+            <div class="alert alert-danger"><?php echo $loginError; ?></div>
+        <?php endif; ?>
+        <form action="login.php" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" class="form-control" id="username" name="username" required>
@@ -106,8 +74,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
     </div>
-    <footer>
-        <?php include("footer.php");?>
-    </footer>
 </body>
 </html>
