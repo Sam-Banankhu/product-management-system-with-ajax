@@ -134,35 +134,38 @@ $result->free_result();
         <hr>
 
         <h2>Items</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <!-- <th>ID</th> -->
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($items as $item): ?>
-                    <tr>
-                        <!-- <td><?php echo $item['item_id']; ?></td> -->
-                        <td><?php echo $item['name']; ?></td>
-                        <td><?php echo $item['description']; ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
-                        <td><?php echo $item['price']; ?></td>
-                        <td><?php echo $item['category_name']; ?></td>
-                        <td>
-                            <button class="btn btn-danger delete-item" data-item-id="<?php echo $item['item_id']; ?>">Delete</button>
-                            <a href="edit.php?item_id=<?php echo $item['item_id']; ?>" class="btn btn-primary">Edit</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+       <!-- ... -->
+<table class="table">
+    <thead>
+        <tr>
+            <!-- <th>ID</th> -->
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <!-- <td><?php echo $item['item_id']; ?></td> -->
+                <td><?php echo $item['name']; ?></td>
+                <td><?php echo $item['description']; ?></td>
+                <td><?php echo $item['quantity']; ?></td>
+                <td><?php echo $item['price']; ?></td>
+                <td><?php echo $item['category_name']; ?></td>
+                <td>
+                    <button class="btn btn-danger delete-item" data-item-id="<?php echo $item['item_id']; ?>">Delete</button>
+                    <a href="edit.php?item_id=<?php echo $item['item_id']; ?>" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<!-- ... -->
+
 
         <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -192,5 +195,7 @@ $result->free_result();
             });
         });
     </script>
+    <script src="js/admin.js"></script>
+
 </body>
 </html>
